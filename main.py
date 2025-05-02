@@ -1,40 +1,18 @@
-import matplotlib.pyplot as plt
 import numpy as np
+from lis import lis
+from wykres import wykres
 
 
 def main():
-# na razie tylko przykładowy wykres
+    sciezka_dane = input("Podaj nazwę pliku .txt w katalogu ")
+    dane = np.genfromtxt(sciezka_dane, delimiter=',', skip_header=1, dtype=int)
+    wynik = lis(dane)
+    sciezka_wynik = input("Podaj nazwę pliku, w którym chcesz zapisać dane: ")
+    np.savetxt(sciezka_wynik, wynik, fmt='%d', delimiter=',', header=f'{len(wynik)}\nw,l', comments='')
+    czy_wyswietlic_wykres = input(f"Wynik został zapisany w pliku {sciezka_wynik}.\nCzy chcesz wyświetlić wykres? (t/n):\n")
+    if czy_wyswietlic_wykres == 't':
+        wykres(dane, wynik)
+    print("Koniec programu.")
 
-    data = [(3, 2), (4, 3), (5, 1), (6, 2), (7, 6)]
-    data1 = [(5, 1), (6, 2), (7, 6)]
-
-    # Rozpakowanie współrzędnych
-    x, y = zip(*data)
-    x1, y1 = zip(*data1)
-
-    # Tworzenie scatterplota
-    plt.figure(figsize=(8, 6))
-    plt.scatter(x, y, color='black', s=30, label='Wszystkie punkty')  # Czarny, mniejsze
-    plt.scatter(x1, y1, color='red', s=60, label='Punkty LIS')  # Czerwony, większe
-
-    # Oznaczenia osi i tytuł
-    plt.xlabel("szerokość pudełek")
-    plt.ylabel("długość pudełek")
-    plt.title("Posortowane wymiary pudełek z wyróżnionym ciągiem LIS")
-
-    # Ustawienie zakresu osi oraz liczbowych oznaczeń tylko dla liczb całkowitych
-    plt.xticks(np.arange(min(x) - 1, max(x) + 2, 1))
-    plt.yticks(np.arange(min(y) - 1, max(y) + 2, 1))
-
-    # Dodanie legendy
-    plt.legend()
-    plt.grid()
-
-    # Wyświetlenie wykresu
-    plt.show()
-
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
