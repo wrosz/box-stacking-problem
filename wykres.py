@@ -3,6 +3,10 @@ import matplotlib.ticker as ticker
 import numpy as np
 
 def wykres(data, data1):
+    '''Generuje wykres scatterplot z punktami znajdującymi się w tablicach data, data1.
+    Punkty z tablicy data są zaznaczone na czarno i mają mniejszy rozmiar, natomiast punkty z tablicy data1
+    są wyróżnione i mają kolor czerwony.'''
+
     # Rozpakowanie współrzędnych
     x, y = zip(*data)
     x1, y1 = zip(*data1)
