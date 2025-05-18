@@ -1,0 +1,7 @@
+from src.generate import generate_boxes_array
+from src.lis import lis
+
+for i in [1000, 10000, 100000]:
+    print(i)
+    arr = generate_boxes_array(i)
+    print(len(lis(arr)))
