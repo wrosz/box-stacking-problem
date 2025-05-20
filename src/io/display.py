@@ -1,7 +1,13 @@
 import numpy as np
 
-def print_solution(arr):
+def ask_choice(prompt, options):
+    choice = input(prompt).lower()
+    while choice not in options:
+        choice = input(f'Podaj jedną z opcji {list(options)}: ').lower()
+    return choice
 
+
+def print_solution(arr):
     # Oblicz szerokość kolumn na podstawie maksymalnej długości liczby
     w_col = max(len(str(int(np.max(arr[:, 0])))), 1)
     l_col = max(len(str(int(np.max(arr[:, 1])))), 1)
