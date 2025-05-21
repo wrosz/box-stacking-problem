@@ -1,5 +1,20 @@
 import numpy as np
 
+def binary_search_left(arr, x):
+    '''Zwraca najmniejszy indeks i, dla którego arr[i] >= x.
+    Jeśli taki nie istnieje, zwraca len(arr) (miejsce do wstawienia na koniec).'''
+    left, right = 0, len(arr) - 1
+    pos = len(arr)  # domyślnie wstaw na koniec
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] >= x:
+            pos = mid
+            right = mid - 1
+        else:
+            left = mid + 1
+    return pos
+
+
 def przetworz_pudelka(pudelka):
     '''Przetwarza listę wymiarów pudełek, tak aby pierwsza współrzędna (szerokość) była nie mniejsza od drugiej (długość).
     Następnie sortuje wymiary pudełek według szerokości rosnąco, a w przypadku równej szerokości - według długości malejąco.
@@ -28,33 +43,30 @@ def lis(pudelka):
     Dane wejściowe:
     pudelka - tablica par liczb całkowitych o długości nieprzekraczającej 100 000'''
 
-    pudelka = przetworz_pudelka(pudelka)  # odpowiednio przetwórz wymiary pudełek
+    pudelka = przetworz_pudelka(pudelka)
     n = len(pudelka)
-    sub = []
+    
+    sub = []      # lista wartości długości pudełek
+    sub_idx = []  # indeksy pudełek w pudelka (dla odtworzenia ścieżki)
     parent = np.full(n, -1)
 
-    # Dodanie pierwszego elementu do sub:
-    sub.append(0)
-    j0 = 0
+    for i in range(n):
+        x = pudelka[i, 1]
+        pos = binary_search_left(sub, x)
+        if pos == len(sub):
+            sub.append(x)
+            sub_idx.append(i)
+        else:
+            sub[pos] = x
+            sub_idx[pos] = i
+        if pos > 0:
+            parent[i] = sub_idx[pos - 1]
 
-    for k in range(1, n):
-        x = pudelka[k,1]  # długość k-tego pudełka
-        for j in range(len(sub)):
-            if pudelka[sub[j], 1] >= x:
-                j0 = j
-                sub[j0] = k
-                break
-            if j == len(sub) - 1:
-                sub.append(k)
-                j0 = j + 1
-        if j0 > 0:
-            parent[k] = sub[j0 - 1]
-    
-    lis = []
-    k = sub[len(sub) - 1]
+    # Odtworzenie LIS
+    lis_seq = []
+    k = sub_idx[-1]
     while k != -1:
-        lis.append(pudelka[k,:])
+        lis_seq.append(pudelka[k])
         k = parent[k]
-    
-    lis = np.array(lis)
-    return lis[::-1]
+    lis_seq.reverse()
+    return np.array(lis_seq)

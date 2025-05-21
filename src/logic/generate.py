@@ -9,9 +9,9 @@ def generate_boxes_array(n, a=1, b=10**9, seed=None):
     assert b > 0, "b musi być dodatnie"
 
     if a > 10 ** 9 or b > 10 ** 9:
-        raise Warning("Maksymalne wymiary przekraczają rozmiar 10^9")
+        print("Uwaga: Maksymalne wymiary przekraczają rozmiar 10^9")
     if n > 10 ** 5:
-        raise Warning("Liczba pudełek przekracza 100 000")
+        print("Uwaga: Liczba pudełek przekracza 100 000")
 
     return np.random.randint(a, b + 1, size=(n, 2), dtype=np.int64)
 
