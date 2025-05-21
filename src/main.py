@@ -1,9 +1,10 @@
-from io.load_input import load_input_from_file, load_data
-from io.save_output import save_output
-from io.display import ask_choice, print_solution
-from io.generate_random_input import generate_random_input_interactive
+from interface.load_input import load_input_from_file, load_data
+from interface.save_output import save_output
+from interface.display import ask_choice, print_solution
+from interface.generate_random_input import generate_random_input_interactive
 from logic.lis import lis
 from plotting.wykres import wykres
+
 
 def main():
     print("Witaj! Co chcesz zrobić?")

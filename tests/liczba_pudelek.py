@@ -1,41 +1,27 @@
 # czas działania algorytmu LIS w zależności od liczby pudełek
 
-import time
 import numpy as np
 import matplotlib.pyplot as plt
+from measure_time_for_lis import measure_time_for_lis
 
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from src.logic.lis import lis
-from src.logic.generate import generate_boxes_array
-
-
-def measure_time_for_lis(data):
-    start = time.perf_counter()
-    _ = lis(data)
-    end = time.perf_counter()
-    return end - start
 
 def main():
-    print("Testowanie wydajności LIS...")
 
+    print("Testowanie wydajności LIS...")
     input_sizes = [1000, 5000] + list(range(10_000, 100_001, 10_000)) + list(range(200_000, 1000_001, 100_000))
     times = []
 
+    ziarno = 42
+
     for n in input_sizes:
         print(f"Test dla n = {n}...")
-        data = generate_boxes_array(n)
-        print("Tablica została wygenerowana.")
         try:
-            t = measure_time_for_lis(data)
+            t = measure_time_for_lis(n, seed=ziarno)[0]
             print(f"   czas: {t:.3f} s")
             times.append(t)
         except Exception as e:
             print(f"   Błąd przy n={n}: {e}")
             times.append(None)
-
 
       # ---- Dopasowanie do c * n log n ----
     nlogn = [n * np.log2(n) for n in input_sizes]
