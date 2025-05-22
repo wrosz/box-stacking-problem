@@ -1,4 +1,4 @@
-from logic.generate import generate_file
+from src.logic.generate import generate_file
 
 def get_valid_int(prompt, min_val=None, max_val=None):
     while True:

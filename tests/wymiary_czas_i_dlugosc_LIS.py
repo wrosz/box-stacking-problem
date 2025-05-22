@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from measure_time_for_lis import measure_time_for_lis
 
+
 def main():
     print("Analiza wpływu zakresu b na czas działania i długość LIS")
     upper_bound = [10**i for i in range(3, 10)]
@@ -16,7 +17,7 @@ def main():
     all_lengths = {}   # b -> lista długości
 
     for b1 in upper_bound:
-        print(f"Test dla b = {b1}...")
+        print(f"Test dla b = 10^{np.log10(b1)}...")
         times_for_b = []
         lengths_for_b = []
 

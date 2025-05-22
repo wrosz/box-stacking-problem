@@ -1,10 +1,11 @@
-from interface.load_input import load_input_from_file, load_data
-from interface.save_output import save_output
-from interface.display import ask_choice, print_solution
-from interface.generate_random_input import generate_random_input_interactive
-from logic.lis import lis
-from plotting.wykres import wykres
+from src.interface.load_input import load_input_from_file, load_data
+from src.interface.save_output import save_output
+from src.interface.display import ask_choice, print_solution
+from src.interface.generate_random_input import generate_random_input_interactive
+from src.logic.lis import lis
+from src.plotting.wykres import wykres
 
+# Aplikacja konsolowa
 
 def main():
     print("Witaj! Co chcesz zrobić?")

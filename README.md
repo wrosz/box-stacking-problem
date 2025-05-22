@@ -1,31 +1,64 @@
 # Problem Układania Pudełek
 
-**Problem Układania Pudełek** to program, który znajduje najdłuższy możliwy ciąg pudełek, które można zapakować jedno w drugie. Każde kolejne pudełko w ciągu musi mieć **ściśle większą długość i szerokość** niż poprzednie. Dozwolone jest **obracanie pudełek o 90 stopni**, co oznacza, że program może traktować długość jako szerokość i odwrotnie, wybierając optymalną orientację.
+**Problem Układania Pudełek** to aplikacja konsolowa, która znajduje najdłuższy możliwy ciąg pudełek, które można zapakować jedno w drugie. Każde pudełko opisane jest parą liczb całkowitych (szerokość, długość). Można je obracać o 90°, a program sam wybiera optymalną orientację.
 
-## Wymagania
+Rozwiązanie oparte jest na algorytmie programowania dynamicznego o złożoności `O(n log n)`.
 
-* System Windows (plik wykonywalny: `main.exe`)
-* Python 3.9–3.11 do pracy z kodem źródłowym (jeśli nie korzystasz z `.exe`)
-* Plik wejściowy `.txt` w odpowiednim formacie
+---
+
+## Opis działania
+
+Program realizuje następujące kroki:
+
+1. **Standaryzacja pudełek** – wymiary są sortowane tak, aby szerokość ≥ długość.
+2. **Usuwanie duplikatów** – identyczne pudełka są eliminowane.
+3. **Sortowanie** – według szerokości rosnąco, a długości malejąco.
+4. **Znajdowanie najdłuższego rosnącego podciągu (LIS)** – wyznaczany na długościach.
+
+---
+
+## Funkcje programu
+
+- Wczytywanie danych z pliku lub generowanie ich losowo.
+- Wyświetlenie wyniku w konsoli.
+- Zapis rozwiązania do pliku.
+- Wizualizacja danych wejściowych i rozwiązania (matplotlib).
+- Obsługa danych do 100 000 pudełek.
+
+---
 
 ## Jak uruchomić
 
-1. Przejdź do folderu `dist`.
-2. Uruchom plik `main.exe`.
-3. Program poprosi o:
+### 1. Wersja źródłowa (Python)
 
-   * Ścieżkę do pliku wejściowego (`.txt`)
-   * Ścieżkę do pliku wyjściowego (`.txt`)
-   * Informację, czy chcesz wygenerować wykres ilustrujący rozwiązanie
-4. Dla przetestowania działania programu możesz użyć gotowych danych z folderu `example_data/`:
+Wymagania:
+- Python 3.9–3.11
+- Biblioteki: `numpy`, `matplotlib`
 
-   * `example.txt` – zawiera 5 pudełek
-   * `example2.txt` – zawiera 1000 pudełek
+Instalacja zależności:
+```bash
+pip install -r requirements.txt
+```
 
-## Format pliku wejściowego
+Uruchomienie:
+```bash
+python main.py
+```
 
-Plik tekstowy musi mieć strukturę CSV z nagłówkiem `w,l`:
+### 2. Wersja wykonywalna (Windows)
 
+Pobierz plik `main.exe` i uruchom go dwuklikiem lub w terminalu:
+```bash
+./main.exe
+```
+
+Nie wymaga instalacji Pythona.
+
+---
+
+## Format danych
+
+### Dane wejściowe (CSV)
 ```
 w,l
 5,1
@@ -35,73 +68,73 @@ w,l
 3,4
 ```
 
-* Pierwszy wiersz to nagłówek: `w,l` (szerokość, długość)
-* Kolejne wiersze to wymiary pudełek (liczby całkowite)
-* Maksymalnie 100 000 pudełek
-* Maksymalne wartości wymiarów: 10⁹
-* Program automatycznie wybiera najlepszą orientację każdego pudełka (obrót o 90°)
+- Pierwszy wiersz: nagłówek `w,l`
+- Kolejne wiersze: wymiary pudełek
+- Maksymalnie: 100 000 pudełek
+- Maksymalny wymiar: 1 000 000 000
 
-## Format pliku wyjściowego
-
-Wynikowy plik `.txt` ma następujący format:
-
+### Wynik (CSV)
 ```
 3
 w,l
-5,1
-6,2
-7,6
+2,3
+3,4
+6,7
 ```
 
-* Pierwszy wiersz: długość najdłuższego ciągu pudełek
-* Kolejne wiersze: wymiary wybranych pudełek w formacie `w,l`
+- Wiersz 1: długość najdłuższego ciągu
+- Kolejne: posortowane wymiary wybranych pudełek
+
+---
 
 ## Wizualizacja
 
-Po zakończeniu obliczeń program zapyta, czy chcesz wygenerować wykres punktowy:
+Po zakończeniu obliczeń program zapyta, czy chcesz wyświetlić wykres:
 
-* Wszystkie pudełka zostaną przedstawione jako punkty (`w`, `l`) na płaszczyźnie
-* Znaleziony ciąg zostanie wyróżniony graficznie
+- Wszystkie pudełka jako punkty (w, l)
+- Znaleziony ciąg LIS wyróżniony graficznie
 
-## Algorytm
+---
 
-Program wykorzystuje zmodyfikowany algorytm najdłuższego rosnącego podciągu (LIS), po wcześniejszym posortowaniu pudełek. Dopuszczalność obrotu zwiększa przestrzeń możliwych rozwiązań i umożliwia znalezienie dłuższych ciągów.
-
-## Struktura kodu
+## Struktura katalogów
 
 ```
-main.py                 # Obsługa interakcji z użytkownikiem (uruchamianie programu)
-main.spec               # Konfiguracja PyInstaller
-README.md               # Dokumentacja projektu
-requirements.txt        # Lista zależności
+.
+├── main.py               # Główny plik aplikacji konsolowej
+├── main.spec             # Konfiguracja PyInstaller (build .exe)
+├── requirements.txt      # Lista zależności
+├── README.md             # Dokumentacja projektu
 
-dist/
-└── main.exe            # Wersja wykonywalna programu
+├── src/                  # Logika aplikacji
+│   ├── interface/        # Obsługa wejścia/wyjścia
+│   │   ├── display.py
+│   │   ├── generate_random_input.py
+│   │   ├── load_input.py
+│   │   ├── save_output.py
+│   │   ├── validate_input_file.py
+│   │   └── __init__.py
+│   │
+│   ├── logic/            # Algorytmy i przetwarzanie
+│   │   ├── generate.py
+│   │   ├── lis.py
+│   │   └── __init__.py
+│   │
+│   └── plotting/         # Rysowanie wykresu
+│       ├── wykres.py
+│       └── __init__.py
 
-src/
-├── lis.py              # Algorytm LIS (najdłuższy rosnący podciąg pudełek)
-├── wykres.py           # Generowanie wykresu (matplotlib)
-└── __init__.py         # Plik inicjalizujący moduł
-
-example_data/
-├── example.txt         # Przykładowy plik wejściowy (5 pudełek)
-└── example2.txt        # Przykładowy plik testowy (1000 pudełek)
-
-build/                  # Pliki techniczne tworzone przez PyInstaller
-__pycache__/            # Pliki cache Pythona
-.venv/                  # Środowisko wirtualne (lokalne)
+├── tests/                # Skrypty testowe
+│   ├── liczba_pudelek.py
+│   ├── liczba_pudelek_bez_binary_search.py
+│   ├── measure_time_for_lis.py
+│   ├── wymiary_czas_i_dlugosc_LIS.py
+│   ├── wymiary_pudelek.py
+│   └── __init__.py
 ```
 
-## Plany rozwoju
-
-Projekt znajduje się w fazie **beta**. W planach:
-
-* Dodanie walidacji danych wejściowych i obsługi błędów
-* Analiza wydajności algorytmu na dużych danych (benchmarki)
-* Zautomatyzowane testy jednostkowe i integracyjne
-* Generator losowych plików wejściowych
-* Ulepszona, bardziej intuicyjna interakcja z użytkownikiem
+---
 
 ## Licencja
 
-Projekt edukacyjny. Brak formalnej licencji – używaj i modyfikuj na własną odpowiedzialność.
+Projekt edukacyjny stworzony w ramach zajęć na studiach. Brak formalnej licencji — możesz używać i modyfikować na własną odpowiedzialność.
+

@@ -1,4 +1,4 @@
-# czas działania algorytmu LIS w zależności od liczby pudełek
+# Czas działania algorytmu LIS w zależności od liczby pudełek
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -26,17 +26,14 @@ def main():
       # ---- Dopasowanie do c * n log n ----
     nlogn = [n * np.log2(n) for n in input_sizes]
     coeff_nlogn = np.polyfit(nlogn, times, deg=1)  # times ≈ c * nlogn + d
-    coeff_nsquared = np.polyfit(input_sizes, times, deg=2)
     fitted_times_nlogn = [coeff_nlogn[0] * x + coeff_nlogn[1] for x in nlogn]
-    fitted_times_nsquared = [coeff_nsquared[0] * x**2 + coeff_nsquared[1] * x + coeff_nsquared[2] for x in input_sizes]
-
+    
     print(f"\nDopasowano funkcję: t(n) ≈ {coeff_nlogn[0]:.6e} * n log n + {coeff_nlogn[1]:.6e}\n")
 
     # ---- Wykres ----
     plt.figure(figsize=(10, 6))
     plt.plot(input_sizes, times, 'o-', label='Zmierzony czas')
     plt.plot(input_sizes, fitted_times_nlogn, 'r--', label=f'Dopasowanie: c·n·log(n)')
-    plt.plot(input_sizes, fitted_times_nsquared, 'b--', label=f'Dopasowanie: c·n^2')
     plt.xlabel("n (liczba pudełek)")
     plt.ylabel("Czas wykonania (s)")
     plt.title("Złożoność algorytmu LIS vs. dopasowanie c·n·log(n)")

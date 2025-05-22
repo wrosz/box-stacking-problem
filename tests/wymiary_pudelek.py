@@ -2,9 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from measure_time_for_lis import measure_time_for_lis
 
+# Analiza wpływu długości przedziału możliwych wymiarów pudełek na czas wykonywania algorytmu oraz długość odnalezionego podciągu LIS
+
 def main():
     print("Testowanie wydajności LIS w zależności od wymiarów pudełek...")
-    upper_bound = [10**i for i in range(3, 10)]
+    upper_bound = [10**i for i in range(3, 13)]
     n_repeats = 60
 
     avg_times = []
@@ -13,7 +15,7 @@ def main():
     all_b_values = []
 
     for b1 in upper_bound:
-        print(f"Test dla b = {b1}...")
+        print(f"Test dla b = 10^{np.log10(b1)}...")
         times_for_b = []
         for i in range(n_repeats):
             try:
