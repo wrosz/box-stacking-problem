@@ -101,7 +101,6 @@ Po zakończeniu obliczeń program zapyta, czy chcesz wyświetlić wykres:
 ```
 .
 ├── main.py               # Główny plik aplikacji konsolowej
-├── main.spec             # Konfiguracja PyInstaller (build .exe)
 ├── requirements.txt      # Lista zależności
 ├── README.md             # Dokumentacja projektu
 
