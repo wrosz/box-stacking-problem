@@ -44,7 +44,7 @@ def validate_input_file(path):
 
 def load_input_from_file():
     while True:
-        path = input("Podaj ścieżkę do pliku .txt: ")
+        path = input("Podaj ścieżkę lub nazwę pliku .txt: ")
         try:
             validate_input_file(path)
             print("Plik został poprawnie odczytany.\n")

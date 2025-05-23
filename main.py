@@ -35,7 +35,7 @@ def main():
 
     if ask_choice("Zapisać wynik do pliku? (t/n): ", ["t", "n"]) == "t":
         while True:
-            sciezka_wynik = input("Podaj ścieżkę do pliku: ")
+            sciezka_wynik = input("Podaj ścieżkę lub nazwę pliku: ")
             try:
                 save_output(sciezka_wynik, wynik)
                 break

@@ -25,7 +25,7 @@ def generate_random_input_interactive():
     b = get_valid_int(f"Podaj maksymalny wymiar pudełka (a <= b <= 10^9): ", a, 10**9)
     seed = get_valid_int("Podaj seed (liczba całkowita, np. 42): ")
 
-    output_path = input("Podaj ścieżkę, gdzie zapisać plik .txt: ").strip()
+    output_path = input("Podaj ścieżkę lub nazwę pliku .txt, który chcesz zapisać: ").strip()
 
     try:
         generate_file(output_path, n, a, b, seed)
